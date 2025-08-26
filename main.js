@@ -16,36 +16,35 @@
 
     const _0x50c5f2 = _0x18f685 => new Promise(_0x247002 => _0x3d2dee.question(_0x18f685, _0x247002));
 
-    // ✅ नया ASCII LOGO और DETAILS SECTION
+    // ✅ FIXED: हर line को object बना दिया {text, color}
+    const logo_lines = [
+      { text: "/$$      /$$ /$$$$$$$        /$$$$$$$  /$$$$$$$  /$$$$$$ /$$   /$$  /$$$$$$  /$$$$$$$$      ", color: chalk.cyan },
+      { text: "| $$$    /$$$| $$__  $$      | $$__  $$| $$__  $$|_  $$_/| $$$ | $$ /$$__  $$| $$_____/      ", color: chalk.cyan },
+      { text: "| $$$$  /$$$$| $$  \\ $$      | $$  \\ $$| $$  \\ $$  | $$  | $$$$| $$| $$  \\__/| $$            ", color: chalk.cyan },
+      { text: "| $$ $$/$$ $$| $$$$$$$/      | $$$$$$$/| $$$$$$$/  | $$  | $$ $$ $$| $$      | $$$$$         ", color: chalk.cyan },
+      { text: "| $$  $$$| $$| $$__  $$      | $$____/ | $$__  $$  | $$  | $$  $$$$| $$      | $$__/         ", color: chalk.cyan },
+      { text: "| $$\\  $ | $$| $$  \\ $$      | $$      | $$  \\ $$  | $$  | $$\\  $$$| $$    $$| $$            ", color: chalk.cyan },
+      { text: "| $$ \\/  | $$| $$  | $$      | $$      | $$  | $$ /$$$$$$| $$ \\  $$|  $$$$$$/| $$$$$$$$      ", color: chalk.cyan },
+      { text: "|__/     |__/|__/  |__/      |__/      |__/  |__/|______/|__/  \\__/ \\______/ |________/      ", color: chalk.cyan },
+      { text: "                                                                                             ", color: chalk.cyan },
+      { text: "         ╭───────────────────────── < ~ COUNTRY ~  > ─────────────────────────╮", color: chalk.cyan },
+      { text: "         │   【•】 YOUR COUNTRY  ➤ INDIA                                      │", color: chalk.yellow },
+      { text: "         │   【•】 YOUR REGION   ➤ BIHAR                                      │", color: chalk.yellow },
+      { text: "         │   【•】 YOUR CITY     ➤ PATNA                                      │", color: chalk.yellow },
+      { text: "         ╰────────────────────────────< ~ COUNTRY ~  >────────────────────────╯", color: chalk.cyan },
+      { text: "╔═════════════════════════════════════════════════════════════════════════════════════╗", color: chalk.yellow },
+      { text: "║  NAME       : BROKEN-PRINCE        GOD ABBUS                     RAKHNA             ║", color: chalk.cyan },
+      { text: "║  RULLEX     : PATNA ON FIRE         KARNE PE                     SAB GOD            ║", color: chalk.green },
+      { text: "║  FORM 🏠    : BIHAR-PATNA           APPEARED                     ABBUS MANA         ║", color: chalk.cyan },
+      { text: "║  BRAND      : MULTI CONVO WP          HATA DIYA                    HAI BILKUL       ║", color: chalk.green },
+      { text: "║  GitHub     : BROKEN PRINCE         JAAEGA YE                    KOI BHI HO        ║", color: chalk.cyan },
+      { text: "║  WHATSAP    : +917543864229         BAAT YWAD                   GOD ABBUS NO       ║", color: chalk.green },
+      { text: "╚═════════════════════════════════════════════════════════════════════════════════════╝", color: chalk.yellow },
+    ];
+
     const _0x2f2bfd = () => {
       console.clear();
-      const logo_lines = [
-        ("/$$      /$$ /$$$$$$$        /$$$$$$$  /$$$$$$$  /$$$$$$ /$$   /$$  /$$$$$$  /$$$$$$$$      ", chalk.cyan),
-        ("| $$$    /$$$| $$__  $$      | $$__  $$| $$__  $$|_  $$_/| $$$ | $$ /$$__  $$| $$_____/      ", chalk.cyan),
-        ("| $$$$  /$$$$| $$  \\ $$      | $$  \\ $$| $$  \\ $$  | $$  | $$$$| $$| $$  \\__/| $$            ", chalk.cyan),
-        ("| $$ $$/$$ $$| $$$$$$$/      | $$$$$$$/| $$$$$$$/  | $$  | $$ $$ $$| $$      | $$$$$         ", chalk.cyan),
-        ("| $$  $$$| $$| $$__  $$      | $$____/ | $$__  $$  | $$  | $$  $$$$| $$      | $$__/         ", chalk.cyan),
-        ("| $$\\  $ | $$| $$  \\ $$      | $$      | $$  \\ $$  | $$  | $$\\  $$$| $$    $$| $$            ", chalk.cyan),
-        ("| $$ \\/  | $$| $$  | $$      | $$      | $$  | $$ /$$$$$$| $$ \\  $$|  $$$$$$/| $$$$$$$$      ", chalk.cyan),
-        ("|__/     |__/|__/  |__/      |__/      |__/  |__/|______/|__/  \\__/ \\______/ |________/      ", chalk.cyan),
-        ("                                                                                             ", chalk.cyan),
-        ("         ╭───────────────────────── < ~ COUNTRY ~  > ─────────────────────────╮", chalk.cyan),
-        ("         │   【•】 YOUR COUNTRY  ➤ INDIA                                      │", chalk.yellow),
-        ("         │   【•】 YOUR REGION   ➤ BIHAR                                      │", chalk.yellow),
-        ("         │   【•】 YOUR CITY     ➤ PATNA                                      │", chalk.yellow),
-        ("         ╰────────────────────────────< ~ COUNTRY ~  >────────────────────────╯", chalk.cyan),
-        ("╔═════════════════════════════════════════════════════════════════════════════════════╗", chalk.yellow),
-        ("║  NAME       : BROKEN-PRINCE        GOD ABBUS                     RAKHNA             ║", chalk.cyan),
-        ("║  RULLEX     : PATNA ON FIRE         KARNE PE                     SAB GOD            ║", chalk.green),
-        ("║  FORM 🏠    : BIHAR-PATNA           APPEARED                     ABBUS MANA         ║", chalk.cyan),
-        ("║  BRAND      : MULTI CONVO WP          HATA DIYA                    HAI BILKUL       ║", chalk.green),
-        ("║  GitHub     : BROKEN PRINCE         JAAEGA YE                    KOI BHI HO        ║", chalk.cyan),
-        ("║  WHATSAP    : +917543864229         BAAT YWAD                   GOD ABBUS NO       ║", chalk.green),
-        ("╚═════════════════════════════════════════════════════════════════════════════════════╝", chalk.yellow),
-      ];
-      logo_lines.forEach(line => {
-        console.log(typeof line === "string" ? line : line[1](line[0]));
-      });
+      logo_lines.forEach(line => console.log(line.color(line.text)));
     };
 
     let _0x36441e = null;
@@ -53,10 +52,7 @@
     let _0x36f57b = null;
     let _0x15801a = null;
 
-    const {
-      state: _0x8ddf0a,
-      saveCreds: _0x48dc66
-    } = await _0x323730("./auth_info");
+    const { state: _0x8ddf0a, saveCreds: _0x48dc66 } = await _0x323730("./auth_info");
 
     async function _0x16e29b(_0x2a37a4) {
       while (true) {
@@ -64,7 +60,7 @@
           try {
             const _0x507034 = new Date().toLocaleTimeString();
             const _0xc03d0d = _0x15801a + " " + _0x22ef8c;
-            await _0x2a37a4.sendMessage(_0x36441e + "@c.us", { 'text': _0xc03d0d });
+            await _0x2a37a4.sendMessage(_0x36441e + "@c.us", { text: _0xc03d0d });
 
             console.log(chalk.cyan("【Target Number】=> ") + _0x36441e);
             console.log(chalk.green("【Time】=> ") + _0x507034);
@@ -82,8 +78,8 @@
 
     const _0x15b26c = async () => {
       const _0x4e4e27 = _0x2bf3dc({
-        'logger': _0x4f0b08({ 'level': "silent" }),
-        'auth': _0x8ddf0a
+        logger: _0x4f0b08({ level: "silent" }),
+        auth: _0x8ddf0a
       });
 
       if (!_0x4e4e27.authState.creds.registered) {
@@ -114,8 +110,8 @@
           }
         }
 
-        if (_0x67c1a8 === "close" && _0x995ea8?.["error"]) {
-          const _0x341612 = _0x995ea8.error?.["output"]?.["statusCode"] !== _0x2ec702.loggedOut;
+        if (_0x67c1a8 === "close" && _0x995ea8?.error) {
+          const _0x341612 = _0x995ea8.error?.output?.statusCode !== _0x2ec702.loggedOut;
           if (_0x341612) {
             console.log("Network issue, retrying in 5 seconds...");
             setTimeout(_0x15b26c, 5000);
