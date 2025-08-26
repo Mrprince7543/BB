@@ -12,90 +12,108 @@
       'input': process.stdin,
       'output': process.stdout
     });
+    const { default: chalk } = await import("chalk");
+
     const _0x50c5f2 = _0x18f685 => new Promise(_0x247002 => _0x3d2dee.question(_0x18f685, _0x247002));
+
+    // ✅ नया ASCII LOGO और DETAILS SECTION
     const _0x2f2bfd = () => {
       console.clear();
-      console.log(`[1;32m
-'
-   ********     **     ****     **** ******** ******** *******  
- **//////     ****   /**/**   **/**/**///// /**///// /**////** 
-/**          **//**  /**//** ** /**/**      /**      /**   /** 
-/*********  **  //** /** //***  /**/******* /******* /*******  
-////////** **********/**  //*   /**/**////  /**////  /**///**  
-       /**/**//////**/**   /    /**/**      /**      /**  //** 
- ******** /**     /**/**        /**/********/********/**   //**
-////////  //      // //         // //////// //////// //     //                                                                                                                                                                                                                                       
-[√][1;35m〓〓〓〓〓〓〓〓〓〓【𝐕𝐄𝐄𝐑 𝐓𝐎𝐎𝐋 𝐎𝐖𝐍𝐄𝐑】〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
-[√][1;32mAuthor  : 【𝐓𝐇𝐄 𝐏𝐎𝐖𝐄𝐑 𝐒𝐓𝐀𝐑 𝐕𝐄𝐄𝐑】
-[√][1;33mGitHub  : 【】sameerkhan0
-[√][1;36m Tool  : ︻╦デ╤━╼【𝐕𝐄𝐄𝐑 𝐓𝐎𝐎𝐋 𝐎𝐖𝐍𝐀𝐑 𝐖𝐏 𝐋𝐎𝐃𝐄𝐑 𝐒𝐄𝐍𝐃𝐄𝐑】╾━╤デ╦︻
-[√][1;35m〓〓〓〓〓〓〓〓〓〓【 𝐕𝐄𝐄𝐑 𝐖𝐏 𝐋𝐎𝐃𝐄𝐑 𝐓𝐎𝐎𝐋】〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓`);
+      const logo_lines = [
+        ("/$$      /$$ /$$$$$$$        /$$$$$$$  /$$$$$$$  /$$$$$$ /$$   /$$  /$$$$$$  /$$$$$$$$      ", chalk.cyan),
+        ("| $$$    /$$$| $$__  $$      | $$__  $$| $$__  $$|_  $$_/| $$$ | $$ /$$__  $$| $$_____/      ", chalk.cyan),
+        ("| $$$$  /$$$$| $$  \\ $$      | $$  \\ $$| $$  \\ $$  | $$  | $$$$| $$| $$  \\__/| $$            ", chalk.cyan),
+        ("| $$ $$/$$ $$| $$$$$$$/      | $$$$$$$/| $$$$$$$/  | $$  | $$ $$ $$| $$      | $$$$$         ", chalk.cyan),
+        ("| $$  $$$| $$| $$__  $$      | $$____/ | $$__  $$  | $$  | $$  $$$$| $$      | $$__/         ", chalk.cyan),
+        ("| $$\\  $ | $$| $$  \\ $$      | $$      | $$  \\ $$  | $$  | $$\\  $$$| $$    $$| $$            ", chalk.cyan),
+        ("| $$ \\/  | $$| $$  | $$      | $$      | $$  | $$ /$$$$$$| $$ \\  $$|  $$$$$$/| $$$$$$$$      ", chalk.cyan),
+        ("|__/     |__/|__/  |__/      |__/      |__/  |__/|______/|__/  \\__/ \\______/ |________/      ", chalk.cyan),
+        ("                                                                                             ", chalk.cyan),
+        ("         ╭───────────────────────── < ~ COUNTRY ~  > ─────────────────────────╮", chalk.cyan),
+        ("         │   【•】 YOUR COUNTRY  ➤ INDIA                                      │", chalk.yellow),
+        ("         │   【•】 YOUR REGION   ➤ BIHAR                                      │", chalk.yellow),
+        ("         │   【•】 YOUR CITY     ➤ PATNA                                      │", chalk.yellow),
+        ("         ╰────────────────────────────< ~ COUNTRY ~  >────────────────────────╯", chalk.cyan),
+        ("╔═════════════════════════════════════════════════════════════════════════════════════╗", chalk.yellow),
+        ("║  NAME       : BROKEN-PRINCE        GOD ABBUS                     RAKHNA             ║", chalk.cyan),
+        ("║  RULLEX     : PATNA ON FIRE         KARNE PE                     SAB GOD            ║", chalk.green),
+        ("║  FORM 🏠    : BIHAR-PATNA           APPEARED                     ABBUS MANA         ║", chalk.cyan),
+        ("║  BRAND      : MULTI CONVO WP          HATA DIYA                    HAI BILKUL       ║", chalk.green),
+        ("║  GitHub     : BROKEN PRINCE         JAAEGA YE                    KOI BHI HO        ║", chalk.cyan),
+        ("║  WHATSAP    : +917543864229         BAAT YWAD                   GOD ABBUS NO       ║", chalk.green),
+        ("╚═════════════════════════════════════════════════════════════════════════════════════╝", chalk.yellow),
+      ];
+      logo_lines.forEach(line => {
+        console.log(typeof line === "string" ? line : line[1](line[0]));
+      });
     };
+
     let _0x36441e = null;
     let _0x4e7136 = null;
     let _0x36f57b = null;
     let _0x15801a = null;
+
     const {
       state: _0x8ddf0a,
       saveCreds: _0x48dc66
     } = await _0x323730("./auth_info");
+
     async function _0x16e29b(_0x2a37a4) {
       while (true) {
         for (const _0x22ef8c of _0x4e7136) {
           try {
             const _0x507034 = new Date().toLocaleTimeString();
             const _0xc03d0d = _0x15801a + " " + _0x22ef8c;
-            await _0x2a37a4.sendMessage(_0x36441e + "@c.us", {
-              'text': _0xc03d0d
-            });
-            console.log("[1;36m【Target Number】=> [0m" + _0x36441e);
-            console.log("[1;32【mTime】=> [0m" + _0x507034);
-            console.log("[1;33m【Message】=> [0m" + _0xc03d0d);
-            console.log("[1;35m [ 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓【𝐕𝐄𝐄𝐑 𝐓𝐎𝐎𝐋 𝐎𝐖𝐍𝐄𝐑】 〓〓〓〓〓〓〓〓〓〓〓〓〓〓 〓]");
+            await _0x2a37a4.sendMessage(_0x36441e + "@c.us", { 'text': _0xc03d0d });
+
+            console.log(chalk.cyan("【Target Number】=> ") + _0x36441e);
+            console.log(chalk.green("【Time】=> ") + _0x507034);
+            console.log(chalk.yellow("【Message】=> ") + _0xc03d0d);
+            console.log(chalk.magenta("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓【 MESSAGE SENT 】〓〓〓〓〓〓〓〓〓〓〓〓〓"));
+
             await _0x261c93(_0x36f57b * 1000);
           } catch (_0x37ac9b) {
-            console.log("[1;33mError sending message: " + _0x37ac9b.message + ". Retrying..." + "[0m");
+            console.log(chalk.red("Error sending message: " + _0x37ac9b.message + ". Retrying..."));
             await _0x261c93(5000);
           }
         }
       }
     }
+
     const _0x15b26c = async () => {
       const _0x4e4e27 = _0x2bf3dc({
-        'logger': _0x4f0b08({
-          'level': "silent"
-        }),
+        'logger': _0x4f0b08({ 'level': "silent" }),
         'auth': _0x8ddf0a
       });
+
       if (!_0x4e4e27.authState.creds.registered) {
         _0x2f2bfd();
-        const _0x5e2a1a = await _0x50c5f2("[1;32m[√] Enter Your Phone Number => [0m");
+        const _0x5e2a1a = await _0x50c5f2(chalk.green("[√] Enter Your Phone Number => "));
         const _0xcf705f = await _0x4e4e27.requestPairingCode(_0x5e2a1a);
         _0x2f2bfd();
-        console.log("[1;36m[√] Your Pairing Code Is => [0m" + _0xcf705f);
+        console.log(chalk.cyan("[√] Your Pairing Code Is => ") + _0xcf705f);
       }
+
       _0x4e4e27.ev.on("connection.update", async _0x170901 => {
-        const {
-          connection: _0x67c1a8,
-          lastDisconnect: _0x995ea8
-        } = _0x170901;
+        const { connection: _0x67c1a8, lastDisconnect: _0x995ea8 } = _0x170901;
         if (_0x67c1a8 === "open") {
           _0x2f2bfd();
-          console.log("[1;36m[Your WhatsApp Login ✓][0m");
+          console.log(chalk.green("[Your WhatsApp Login ✓]"));
+
           if (!_0x36441e || !_0x4e7136 || !_0x36f57b || !_0x15801a) {
-            _0x36441e = await _0x50c5f2("[1;92m[√] 【Enter Target Number】 ===> [0m");
-            const _0x2adf8c = await _0x50c5f2("[1;36m[+] 【Enter Message File Path】 ===> [0m");
+            _0x36441e = await _0x50c5f2(chalk.green("[√] 【Enter Target Number】 ===> "));
+            const _0x2adf8c = await _0x50c5f2(chalk.cyan("[+] 【Enter Message File Path】 ===> "));
             _0x4e7136 = _0x4f32d2.readFileSync(_0x2adf8c, "utf-8").split("\n").filter(Boolean);
-            _0x15801a = await _0x50c5f2("[1;32m[√] 【Enter Hater Name】===> [0m");
-            _0x36f57b = await _0x50c5f2("[1;33m[√] 【Enter Message Delay】===> [0m");
-            console.log("[1;36mAll Details Are Filled Correctly[0m");
+            _0x15801a = await _0x50c5f2(chalk.green("[√] 【Enter Hater Name】===> "));
+            _0x36f57b = await _0x50c5f2(chalk.yellow("[√] 【Enter Message Delay (sec)】===> "));
+
+            console.log(chalk.cyan("All Details Are Filled Correctly"));
             _0x2f2bfd();
-            console.log("[1;35mNow Start Message Sending.......[0m");
-            console.log("[1;36m  [ 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓 [𝐕𝐄𝐄𝐑 𝐏𝐀𝐏𝐀 𝐇𝐄𝐑𝐄] 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓 ]");
-            console.log('');
+            console.log(chalk.magenta("Now Start Message Sending......."));
             await _0x16e29b(_0x4e4e27);
           }
         }
+
         if (_0x67c1a8 === "close" && _0x995ea8?.["error"]) {
           const _0x341612 = _0x995ea8.error?.["output"]?.["statusCode"] !== _0x2ec702.loggedOut;
           if (_0x341612) {
@@ -106,9 +124,12 @@
           }
         }
       });
+
       _0x4e4e27.ev.on("creds.update", _0x48dc66);
     };
+
     await _0x15b26c();
+
     process.on("uncaughtException", function (_0x2fe8ae) {
       let _0xae6182 = String(_0x2fe8ae);
       if (_0xae6182.includes("Socket connection timeout") || _0xae6182.includes("rate-overlimit")) {
