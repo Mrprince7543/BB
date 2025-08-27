@@ -16,7 +16,7 @@
 
     const ask = q => new Promise(r => readline.question(q, r));
 
-    // ✅ LOGO + DETAILS
+    // ✅ ASCII LOGO + DETAILS
     const logo_lines = [
       { text: "/$$      /$$ /$$$$$$$        /$$$$$$$  /$$$$$$$  /$$$$$$ /$$   /$$  /$$$$$$  /$$$$$$$$      ", color: chalk.cyan },
       { text: "| $$$    /$$$| $$__  $$      | $$__  $$| $$__  $$|_  $$_/| $$$ | $$ /$$__  $$| $$_____/      ", color: chalk.cyan },
@@ -59,13 +59,20 @@
         for (const msg of messages) {
           try {
             const now = new Date().toLocaleTimeString();
-            const finalMsg = haterName + " " + msg;
+
+            // ✅ WhatsApp pe bhejna ka final format
+            const finalMsg = [
+              "────────── MR PRINCE ──────────",
+              haterName + " " + msg,
+              "────────── MR PRINCE ──────────"
+            ].join("\n");
 
             await sock.sendMessage(targetJid, { text: finalMsg });
 
+            // Console log
             console.log(chalk.cyan("【Target】=> ") + targetJid);
             console.log(chalk.green("【Time】=> ") + now);
-            console.log(chalk.yellow("【Message】=> ") + finalMsg);
+            console.log(chalk.yellow("【Message Sent】=> \n" + finalMsg));
             console.log(chalk.magenta("〓〓〓〓〓〓〓〓〓 MESSAGE SENT 〓〓〓〓〓〓〓〓〓"));
 
             await delay(delaySec * 1000);
@@ -96,17 +103,19 @@
           banner();
           console.log(chalk.green("[✓] WhatsApp Connected!"));
 
-          // ✅ OPTION SELECTION
-          console.log(chalk.cyan("\nChoose Messaging Mode:"));
-          console.log(chalk.yellow("1. Inbox (Single Number)"));
-          console.log(chalk.yellow("2. Group (Choose from Joined Groups)"));
+          // ✅ BOXED MENU
+          console.log(chalk.cyan("\n╔══════════════════════════════════════╗"));
+          console.log(chalk.cyan("║           Choose Messaging Mode      ║"));
+          console.log(chalk.cyan("╠══════════════════════════════════════╣"));
+          console.log(chalk.yellow("║ 1. Inbox (Single Number)             ║"));
+          console.log(chalk.yellow("║ 2. Group (Choose from Joined Groups) ║"));
+          console.log(chalk.cyan("╚══════════════════════════════════════╝"));
+
           const choice = await ask(chalk.green("Enter Option (1 or 2): "));
 
           if (choice === "1") {
-            // ✅ Inbox Mode
             targetJid = (await ask(chalk.green("[√] 【Enter Target Number】 ===> "))) + "@s.whatsapp.net";
           } else if (choice === "2") {
-            // ✅ Group Mode
             const groupList = await sock.groupFetchAllParticipating();
             const groupArray = Object.values(groupList);
 
@@ -166,4 +175,3 @@
     console.error("Error importing modules:", err);
   }
 })();
-            
