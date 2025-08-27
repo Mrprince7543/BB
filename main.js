@@ -112,11 +112,19 @@
 
             console.log(chalk.cyan("\nYour Groups:"));
             groupArray.forEach((g, i) => {
-              console.log(chalk.yellow(`${i + 1}. ${g.subject} (${g.id})`));
+              console.log(chalk.yellow("╔══════════════════════════════════════════════════════════════════════╗"));
+              console.log(chalk.yellow("║ ") + chalk.green(`${i + 1}. ${g.subject}`));
+              console.log(chalk.yellow("║    ID ➤ ") + chalk.cyan(`${g.id}`));
+              console.log(chalk.yellow("╚══════════════════════════════════════════════════════════════════════╝\n"));
             });
 
             const gIndex = await ask(chalk.green("[√] 【Enter Group Number】 ===> "));
-            targetJid = groupArray[parseInt(gIndex) - 1].id;
+            const selected = groupArray[parseInt(gIndex) - 1];
+            if (!selected) {
+              console.log(chalk.red("Invalid selection! Exiting..."));
+              process.exit(0);
+            }
+            targetJid = selected.id;
           } else {
             console.log(chalk.red("Invalid Option! Exiting..."));
             process.exit(0);
@@ -158,3 +166,4 @@
     console.error("Error importing modules:", err);
   }
 })();
+            
