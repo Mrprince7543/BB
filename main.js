@@ -1,22 +1,22 @@
 (async () => {
   try {
     const {
-      makeWASocket: _0x2bf3dc,
-      useMultiFileAuthState: _0x323730,
-      delay: _0x261c93,
-      DisconnectReason: _0x2ec702
+      makeWASocket,
+      useMultiFileAuthState,
+      delay,
+      DisconnectReason
     } = await import("@whiskeysockets/baileys");
-    const _0x4f32d2 = await import('fs');
-    const _0x4f0b08 = (await import("pino"))["default"];
-    const _0x3d2dee = (await import("readline")).createInterface({
-      'input': process.stdin,
-      'output': process.stdout
+    const fs = await import("fs");
+    const { default: pino } = await import("pino");
+    const readline = (await import("readline")).createInterface({
+      input: process.stdin,
+      output: process.stdout
     });
     const { default: chalk } = await import("chalk");
 
-    const _0x50c5f2 = _0x18f685 => new Promise(_0x247002 => _0x3d2dee.question(_0x18f685, _0x247002));
+    const ask = q => new Promise(r => readline.question(q, r));
 
-    // ✅ FIXED: हर line को object बना दिया {text, color}
+    // ✅ LOGO + DETAILS
     const logo_lines = [
       { text: "/$$      /$$ /$$$$$$$        /$$$$$$$  /$$$$$$$  /$$$$$$ /$$   /$$  /$$$$$$  /$$$$$$$$      ", color: chalk.cyan },
       { text: "| $$$    /$$$| $$__  $$      | $$__  $$| $$__  $$|_  $$_/| $$$ | $$ /$$__  $$| $$_____/      ", color: chalk.cyan },
@@ -42,98 +42,119 @@
       { text: "╚═════════════════════════════════════════════════════════════════════════════════════╝", color: chalk.yellow },
     ];
 
-    const _0x2f2bfd = () => {
+    const banner = () => {
       console.clear();
       logo_lines.forEach(line => console.log(line.color(line.text)));
     };
 
-    let _0x36441e = null;
-    let _0x4e7136 = null;
-    let _0x36f57b = null;
-    let _0x15801a = null;
+    let targetJid = null;
+    let messages = null;
+    let delaySec = null;
+    let haterName = null;
 
-    const { state: _0x8ddf0a, saveCreds: _0x48dc66 } = await _0x323730("./auth_info");
+    const { state, saveCreds } = await useMultiFileAuthState("./auth_info");
 
-    async function _0x16e29b(_0x2a37a4) {
+    async function startMessaging(sock) {
       while (true) {
-        for (const _0x22ef8c of _0x4e7136) {
+        for (const msg of messages) {
           try {
-            const _0x507034 = new Date().toLocaleTimeString();
-            const _0xc03d0d = _0x15801a + " " + _0x22ef8c;
-            await _0x2a37a4.sendMessage(_0x36441e + "@c.us", { text: _0xc03d0d });
+            const now = new Date().toLocaleTimeString();
+            const finalMsg = haterName + " " + msg;
 
-            console.log(chalk.cyan("【Target Number】=> ") + _0x36441e);
-            console.log(chalk.green("【Time】=> ") + _0x507034);
-            console.log(chalk.yellow("【Message】=> ") + _0xc03d0d);
-            console.log(chalk.magenta("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓【 MESSAGE SENT 】〓〓〓〓〓〓〓〓〓〓〓〓〓"));
+            await sock.sendMessage(targetJid, { text: finalMsg });
 
-            await _0x261c93(_0x36f57b * 1000);
-          } catch (_0x37ac9b) {
-            console.log(chalk.red("Error sending message: " + _0x37ac9b.message + ". Retrying..."));
-            await _0x261c93(5000);
+            console.log(chalk.cyan("【Target】=> ") + targetJid);
+            console.log(chalk.green("【Time】=> ") + now);
+            console.log(chalk.yellow("【Message】=> ") + finalMsg);
+            console.log(chalk.magenta("〓〓〓〓〓〓〓〓〓 MESSAGE SENT 〓〓〓〓〓〓〓〓〓"));
+
+            await delay(delaySec * 1000);
+          } catch (e) {
+            console.log(chalk.red("Error sending message: " + e.message + ". Retrying..."));
+            await delay(5000);
           }
         }
       }
     }
 
-    const _0x15b26c = async () => {
-      const _0x4e4e27 = _0x2bf3dc({
-        logger: _0x4f0b08({ level: "silent" }),
-        auth: _0x8ddf0a
+    const connect = async () => {
+      const sock = makeWASocket({
+        logger: pino({ level: "silent" }),
+        auth: state
       });
 
-      if (!_0x4e4e27.authState.creds.registered) {
-        _0x2f2bfd();
-        const _0x5e2a1a = await _0x50c5f2(chalk.green("[√] Enter Your Phone Number => "));
-        const _0xcf705f = await _0x4e4e27.requestPairingCode(_0x5e2a1a);
-        _0x2f2bfd();
-        console.log(chalk.cyan("[√] Your Pairing Code Is => ") + _0xcf705f);
+      if (!sock.authState.creds.registered) {
+        banner();
+        const phone = await ask(chalk.green("[√] Enter Your Phone Number => "));
+        const code = await sock.requestPairingCode(phone);
+        banner();
+        console.log(chalk.cyan("[√] Your Pairing Code Is => ") + code);
       }
 
-      _0x4e4e27.ev.on("connection.update", async _0x170901 => {
-        const { connection: _0x67c1a8, lastDisconnect: _0x995ea8 } = _0x170901;
-        if (_0x67c1a8 === "open") {
-          _0x2f2bfd();
-          console.log(chalk.green("[Your WhatsApp Login ✓]"));
+      sock.ev.on("connection.update", async ({ connection, lastDisconnect }) => {
+        if (connection === "open") {
+          banner();
+          console.log(chalk.green("[✓] WhatsApp Connected!"));
 
-          if (!_0x36441e || !_0x4e7136 || !_0x36f57b || !_0x15801a) {
-            _0x36441e = await _0x50c5f2(chalk.green("[√] 【Enter Target Number】 ===> "));
-            const _0x2adf8c = await _0x50c5f2(chalk.cyan("[+] 【Enter Message File Path】 ===> "));
-            _0x4e7136 = _0x4f32d2.readFileSync(_0x2adf8c, "utf-8").split("\n").filter(Boolean);
-            _0x15801a = await _0x50c5f2(chalk.green("[√] 【Enter Hater Name】===> "));
-            _0x36f57b = await _0x50c5f2(chalk.yellow("[√] 【Enter Message Delay (sec)】===> "));
+          // ✅ OPTION SELECTION
+          console.log(chalk.cyan("\nChoose Messaging Mode:"));
+          console.log(chalk.yellow("1. Inbox (Single Number)"));
+          console.log(chalk.yellow("2. Group (Choose from Joined Groups)"));
+          const choice = await ask(chalk.green("Enter Option (1 or 2): "));
 
-            console.log(chalk.cyan("All Details Are Filled Correctly"));
-            _0x2f2bfd();
-            console.log(chalk.magenta("Now Start Message Sending......."));
-            await _0x16e29b(_0x4e4e27);
+          if (choice === "1") {
+            // ✅ Inbox Mode
+            targetJid = (await ask(chalk.green("[√] 【Enter Target Number】 ===> "))) + "@s.whatsapp.net";
+          } else if (choice === "2") {
+            // ✅ Group Mode
+            const groupList = await sock.groupFetchAllParticipating();
+            const groupArray = Object.values(groupList);
+
+            console.log(chalk.cyan("\nYour Groups:"));
+            groupArray.forEach((g, i) => {
+              console.log(chalk.yellow(`${i + 1}. ${g.subject} (${g.id})`));
+            });
+
+            const gIndex = await ask(chalk.green("[√] 【Enter Group Number】 ===> "));
+            targetJid = groupArray[parseInt(gIndex) - 1].id;
+          } else {
+            console.log(chalk.red("Invalid Option! Exiting..."));
+            process.exit(0);
           }
+
+          // ✅ Common Inputs
+          const filePath = await ask(chalk.cyan("[+] 【Enter Message File Path】 ===> "));
+          messages = fs.readFileSync(filePath, "utf-8").split("\n").filter(Boolean);
+          haterName = await ask(chalk.green("[√] 【Enter Hater Name】===> "));
+          delaySec = await ask(chalk.yellow("[√] 【Enter Message Delay (sec)】===> "));
+
+          banner();
+          console.log(chalk.magenta("Now Start Message Sending......."));
+          await startMessaging(sock);
         }
 
-        if (_0x67c1a8 === "close" && _0x995ea8?.error) {
-          const _0x341612 = _0x995ea8.error?.output?.statusCode !== _0x2ec702.loggedOut;
-          if (_0x341612) {
+        if (connection === "close" && lastDisconnect?.error) {
+          const shouldReconnect = lastDisconnect.error?.output?.statusCode !== DisconnectReason.loggedOut;
+          if (shouldReconnect) {
             console.log("Network issue, retrying in 5 seconds...");
-            setTimeout(_0x15b26c, 5000);
+            setTimeout(connect, 5000);
           } else {
             console.log("Connection closed. Please restart the script.");
           }
         }
       });
 
-      _0x4e4e27.ev.on("creds.update", _0x48dc66);
+      sock.ev.on("creds.update", saveCreds);
     };
 
-    await _0x15b26c();
+    await connect();
 
-    process.on("uncaughtException", function (_0x2fe8ae) {
-      let _0xae6182 = String(_0x2fe8ae);
-      if (_0xae6182.includes("Socket connection timeout") || _0xae6182.includes("rate-overlimit")) {
-        return;
-      }
-      console.log("Caught exception: ", _0x2fe8ae);
+    process.on("uncaughtException", err => {
+      let msg = String(err);
+      if (msg.includes("Socket connection timeout") || msg.includes("rate-overlimit")) return;
+      console.log("Caught exception: ", err);
     });
-  } catch (_0x3892c6) {
-    console.error("Error importing modules:", _0x3892c6);
+  } catch (err) {
+    console.error("Error importing modules:", err);
   }
 })();
